@@ -1,25 +1,25 @@
-# 📚 **Table of Contents**
-- ✨ Create Vite Project  
-- 📁 Navigate Into Project  
-- ⚛️ Install React  
-- 🎨 Install Tailwind CSS  
-- 🌈 Install DaisyUI  
-- ✒️ Add Urbanist Font  
-- 🛣️ Install React Router  
-- 🧭 Create Routes  
-- 🔌 Enable Router  
-- 🔔 Toast Notifications  
-- 🔥 Firebase Setup  
-- 👤 Auth Context  
-- 🟦 Auth Provider  
+## 📚 Table of Contents
+1. 🚀 Step 1: Create Vite Project
+2. 📁 Step 2: Navigate Into Project
+3. ⚛️ Step 3: Install React
+4. 🎨 Step 4: Install Tailwind CSS
+5. 🌈 Step 5: Install DaisyUI
+6. ✒️ Step 6: Add Urbanist Font
+7. 🛣️ Step 7: Install React Router
+8. 🏗️ Step 8: Create Layout & Pages
+9. 🧭 Step 9: Create Routes
+10. 🔌 Step 10: Enable Router in main.jsx
+11. 🔔 Step 11: Add Toast Notifications
+12. 🔥 Step 12: Firebase Setup
+13. 👤 Step 13: Create Auth Context
+14. 🛡️ Step 14: Create Auth Provider
+15. 🛡️ Step 15: Create Login.jsx Page
+16. 🛡️ Step 16: Create Signup.jsx Page
+17. 🛡️ Step 17: Add Login & Signup Routes
 
 ---
 
-# ✨ Create Vite Project  
-<div style="background:linear-gradient(90deg,#ff00cc,#3333ff);padding:12px;border-radius:10px;color:white;font-weight:bold;">
-🚀 Create your Vite project  
-</div>
-
+## 🚀 Step 1: Create Vite Project
 ```bash
 npm create vite@latest my-project
 ````
@@ -28,11 +28,7 @@ npm create vite@latest my-project
 
 ---
 
-# 📁 Navigate Into Project
-
-<div style="background:linear-gradient(90deg,#00eaff,#0066ff);padding:12px;border-radius:10px;color:black;font-weight:bold;">
-📁 Move into your new project folder  
-</div>
+## 📁 Step 2: Navigate Into Project
 
 ```bash
 cd my-project
@@ -40,7 +36,7 @@ cd my-project
 
 ---
 
-# ⚛️ Install React
+## ⚛️ Step 3: Install React
 
 ```bash
 npm install
@@ -48,17 +44,13 @@ npm install
 
 ---
 
-# 🎨 Install Tailwind CSS
-
-<div style="background:linear-gradient(90deg,#39ff14,#0aff9d);padding:12px;border-radius:10px;color:black;font-weight:bold;">
-🎨 Install Tailwind + Setup  
-</div>
+## 🎨 Step 4: Install Tailwind CSS
 
 ```bash
 npm install tailwindcss
 ```
 
-**vite.config.ts**
+Update `vite.config.ts`:
 
 ```ts
 import { defineConfig } from "vite";
@@ -70,23 +62,22 @@ export default defineConfig({
 });
 ```
 
-**index.css**
+Update `index.css`:
 
 ```css
+/* src/index.css */
 @import "tailwindcss";
 ```
 
 ---
 
-# 🌈 Install DaisyUI
-
-<div style="background:linear-gradient(90deg,#ff7a00,#ff006a);padding:12px;border-radius:10px;color:white;font-weight:bold;">
-🌸 Add DaisyUI  
-</div>
+## 🌈 Step 5: Install DaisyUI
 
 ```bash
 npm i -D daisyui@latest
 ```
+
+Add plugin in `index.css`:
 
 ```css
 /* src/index.css */
@@ -98,17 +89,12 @@ npm i -D daisyui@latest
 
 ---
 
-# ✒️ Add Urbanist Font
-
-<div style="background:linear-gradient(90deg,#00f0ff,#9d00ff);padding:12px;border-radius:10px;color:white;font-weight:bold;">
-✒️ Add Google Font — Urbanist  
-</div>
+## ✒️ Step 6: Add Urbanist Font
 
 ```css
-/* Import Urbanist font */
+/* src/index.css */
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* Apply to body */
 body {
     font-family: "Urbanist", sans-serif;
     font-optical-sizing: auto;
@@ -118,7 +104,7 @@ body {
 
 ---
 
-# 🛣️ Install React Router
+## 🛣️ Step 7: Install React Router
 
 ```bash
 npm i react-router
@@ -126,27 +112,66 @@ npm i react-router
 
 ---
 
-# 🧭 Create Routes
+## 🏗️ Step 8: Create Layout & Pages
+
+**MainLayout.jsx**
 
 ```jsx
-// src/routes/routes.jsx
+import React from "react";
+import { Outlet } from "react-router";
+
+const MainLayout = () => {
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
+};
+
+export default MainLayout;
+```
+
+**Home.jsx**
+
+```jsx
+import React from "react";
+
+const Home = () => {
+  return (
+    <div>
+      <h1>Home</h1>
+    </div>
+  );
+};
+
+export default Home;
+```
+
+---
+
+## 🧭 Step 9: Create Routes
+
+```jsx
 import { createBrowserRouter } from "react-router";
+import MainLayout from "../layouts/MainLayout";
+import Home from "../pages/Home/Home";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello World</div>,
+    Component: MainLayout,
+    children: [{ index: true, Component: Home }],
   },
 ]);
 ```
 
 ---
 
-# 🔌 Enable Router
+## 🔌 Step 10: Enable Router in main.jsx
 
 ```jsx
-// src/main.jsx
 import React from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router";
 import { router } from "./routes/routes";
@@ -161,11 +186,13 @@ createRoot(document.getElementById("root")).render(
 
 ---
 
-# 🔔 Toast Notifications
+## 🔔 Step 11: Add Toast Notifications
 
 ```bash
 npm install react-hot-toast
 ```
+
+Enable in `main.jsx`:
 
 ```jsx
 import { Toaster } from "react-hot-toast";
@@ -175,14 +202,15 @@ import { Toaster } from "react-hot-toast";
 
 ---
 
-# 🔥 Firebase Setup
+## 🔥 Step 12: Firebase Setup
 
 ```bash
 npm install firebase
 ```
 
+**firebase.config.js**
+
 ```js
-// src/firebase/firebase.config.js
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -193,26 +221,36 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
+
 const app = initializeApp(firebaseConfig);
 export default app;
 ```
 
+**.env**
+
+```
+VITE_FIREBASE_API_KEY=AIzaSyC6utz_eFX05NaoQUpALmPn1z0rCDU6_iE
+VITE_FIREBASE_AUTH_DOMAIN=ankur-48a58.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=ankur-48a58
+VITE_FIREBASE_STORAGE_BUCKET=ankur-48a58.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=749073347715
+VITE_FIREBASE_APP_ID=1:749073347715:web:8f1bcbe21b39b2ffbe57b6
+```
+
 ---
 
-# 👤 Auth Context
+## 👤 Step 13: Create Auth Context
 
 ```jsx
-// src/providers/AuthContext.jsx
 import { createContext } from 'react'
 export const AuthContext = createContext(null)
 ```
 
 ---
 
-# 🟦 Auth Provider
+## 🛡️ Step 14: Create Auth Provider
 
 ```jsx
-// src/providers/AuthProvider.jsx
 import React from "react";
 import { AuthContext } from "./AuthContext";
 import { getAuth } from "firebase/auth";
@@ -229,4 +267,64 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
+```
+
+---
+
+## 🛡️ Step 15: Create Login.jsx Page
+
+```jsx
+import React from "react";
+
+const Login = () => {
+  return (
+    <div>
+      <h1>Login</h1>
+    </div>
+  );
+};
+
+export default Login;
+```
+
+---
+
+## 🛡️ Step 16: Create Signup.jsx Page
+
+```jsx
+import React from "react";
+
+const SignUp = () => {
+  return (
+    <div>
+      <h1>SignUp</h1>
+    </div>
+  );
+};
+
+export default SignUp;
+```
+
+---
+
+## 🛡️ Step 17: Add Login & Signup Routes
+
+```jsx
+import { createBrowserRouter } from "react-router";
+import MainLayout from "../layouts/MainLayout";
+import Home from "../pages/Home/Home";
+import Login from "../pages/Login/Login";
+import SignUp from "../pages/Signup/Signup";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: MainLayout,
+    children: [
+      { index: true, Component: Home },
+      { path: "/login", Component: Login },
+      { path: "/signup", Component: SignUp },
+    ],
+  },
+]);
 ```
