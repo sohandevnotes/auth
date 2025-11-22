@@ -1,15 +1,3 @@
-> **React + Vite + Tailwind + DaisyUI + Router + Firebase + Toast + Auth**  
-> *Designed in a neon, glow, cyberpunk color theme.*  
-
----
-
-# 🔥 **NEON REACT SETUP GUIDE**  
-<div style="padding:20px;border-radius:12px;background:linear-gradient(135deg,#ff00e6,#00eaff);color:white;font-size:20px;font-weight:bold;text-align:center;box-shadow:0 0 20px #ff00e6;">
-⚡ The Ultimate React Setup — Styled in Neon Cyberpunk
-</div>
-
----
-
 # 📚 **Table of Contents**
 - ✨ Create Vite Project  
 - 📁 Navigate Into Project  
