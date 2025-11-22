@@ -13,9 +13,10 @@
 12. 🔥 Step 12: Firebase Setup
 13. 👤 Step 13: Create Auth Context
 14. 🛡️ Step 14: Create Auth Provider
-15. 🛡️ Step 15: Create Login.jsx Page
-16. 🛡️ Step 16: Create Signup.jsx Page
-17. 🛡️ Step 17: Add Login & Signup Routes
+15. 🛡️ Step 15: Create useAuth Hook
+16. 🛡️ Step 16: Create Login.jsx Page
+17. 🛡️ Step 17: Create Signup.jsx Page
+18. 🛡️ Step 18: Add Login & Signup Routes
 
 ---
 
@@ -52,7 +53,7 @@ npm install tailwindcss
 
 Update `vite.config.ts`:
 
-```ts
+```javascript
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -81,10 +82,10 @@ Add plugin in `index.css`:
 
 ```css
 /* src/index.css */
- @plugin "daisyui" {
-   themes: light --default, dark --prefersdark;
-   themes: light --default;
- }
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+  themes: light --default;
+}
 ```
 
 ---
@@ -116,7 +117,7 @@ npm i react-router
 
 **MainLayout.jsx**
 
-```jsx
+```javascript
 import React from "react";
 import { Outlet } from "react-router";
 
@@ -133,7 +134,7 @@ export default MainLayout;
 
 **Home.jsx**
 
-```jsx
+```javascript
 import React from "react";
 
 const Home = () => {
@@ -151,7 +152,7 @@ export default Home;
 
 ## 🧭 Step 9: Create Routes
 
-```jsx
+```javascript
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
@@ -169,7 +170,7 @@ export const router = createBrowserRouter([
 
 ## 🔌 Step 10: Enable Router in main.jsx
 
-```jsx
+```javascript
 import React from "react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -194,7 +195,7 @@ npm install react-hot-toast
 
 Enable in `main.jsx`:
 
-```jsx
+```javascript
 import { Toaster } from "react-hot-toast";
 
 <Toaster position="top-right" reverseOrder={false} />
@@ -210,7 +211,7 @@ npm install firebase
 
 **firebase.config.js**
 
-```js
+```javascript
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -229,28 +230,28 @@ export default app;
 **.env**
 
 ```
-VITE_FIREBASE_API_KEY=AIzaSyC6utz_eFX05NaoQUpALmPn1z0rCDU6_iE
-VITE_FIREBASE_AUTH_DOMAIN=ankur-48a58.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=ankur-48a58
-VITE_FIREBASE_STORAGE_BUCKET=ankur-48a58.firebasestorage.app
-VITE_FIREBASE_MESSAGING_SENDER_ID=749073347715
-VITE_FIREBASE_APP_ID=1:749073347715:web:8f1bcbe21b39b2ffbe57b6
+VITE_FIREBASE_API_KEY=YOUR_API_KEY
+VITE_FIREBASE_AUTH_DOMAIN=YOUR_PROJECT.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
+VITE_FIREBASE_STORAGE_BUCKET=YOUR_PROJECT.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=YOUR_SENDER_ID
+VITE_FIREBASE_APP_ID=YOUR_APP_ID
 ```
 
 ---
 
 ## 👤 Step 13: Create Auth Context
 
-```jsx
-import { createContext } from 'react'
-export const AuthContext = createContext(null)
+```javascript
+import { createContext } from 'react';
+export const AuthContext = createContext(null);
 ```
 
 ---
 
 ## 🛡️ Step 14: Create Auth Provider
 
-```jsx
+```javascript
 import React from "react";
 import { AuthContext } from "./AuthContext";
 import { getAuth } from "firebase/auth";
@@ -271,9 +272,25 @@ export default AuthProvider;
 
 ---
 
-## 🛡️ Step 15: Create Login.jsx Page
+## 🛡️ Step 15: Create useAuth Hook
 
-```jsx
+```javascript
+import { useContext } from 'react';
+import { AuthContext } from '../providers/AuthContext';
+
+const useAuth = () => {
+  const auth = useContext(AuthContext);
+  return auth;
+};
+
+export default useAuth;
+```
+
+---
+
+## 🛡️ Step 16: Create Login.jsx Page
+
+```javascript
 import React from "react";
 
 const Login = () => {
@@ -289,9 +306,9 @@ export default Login;
 
 ---
 
-## 🛡️ Step 16: Create Signup.jsx Page
+## 🛡️ Step 17: Create Signup.jsx Page
 
-```jsx
+```javascript
 import React from "react";
 
 const SignUp = () => {
@@ -307,9 +324,9 @@ export default SignUp;
 
 ---
 
-## 🛡️ Step 17: Add Login & Signup Routes
+## 🛡️ Step 18: Add Login & Signup Routes
 
-```jsx
+```javascript
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
