@@ -1,59 +1,56 @@
 # 📚 Table of Contents
-1. 🚀 Step 1: Create Vite Project  
-2. 📁 Step 2: Navigate Into Project  
-3. ⚛️ Step 3: Install React  
-4. 🎨 Step 4: Install Tailwind CSS  
-5. 🌈 Step 5: Install DaisyUI  
-6. ✒️ Step 6: Add Urbanist Font  
-7. 🛣️ Step 7: Install React Router  
-8. 🏗️ Step 8: Create Layout & Pages  
-9. 🧭 Step 9: Create Routes  
-10. 🔌 Step 10: Enable Router in main.jsx  
-11. 🔔 Step 11: Add Toast Notifications  
-12. 🔥 Step 12: Firebase Setup  
-13. 👤 Step 13: Create Auth Context  
-14. 🛡️ Step 14: Create Auth Provider  
-15. 🛡️ Step 15: Create useAuth Hook  
-16. 🛡️ Step 16: Create Login.jsx Page  
-17. 🛡️ Step 17: Create Signup.jsx Page  
-18. 🛡️ Step 18: Add Login & Signup Routes  
-19. 🛡️ Step 19: Update AuthProvider for createUser  
-20. 🛡️ Step 20: Signup Page With React Hook Form  
+
+1. 🚀 Create Vite Project
+2. 📁 Navigate Into Project
+3. ⚛️ Install React
+4. 🎨 Install Tailwind CSS
+5. 🌈 Install DaisyUI
+6. ✒️ Add Urbanist Font
+7. 🛣️ Install React Router
+8. 🏗️ Create Layout & Pages
+9. 🧭 Create Routes
+10. 🔌 Enable Router in `main.jsx`
+11. 🔔 Add Toast Notifications
+12. 🔥 Firebase Setup
+13. 👤 Create Auth Context
+14. 🛡️ Create Auth Provider
+15. 🛡️ Create `useAuth` Hook
+16. 🛡️ Create Login Page
+17. 🛡️ Create Signup Page
+18. 🛡️ Add Login & Signup Routes
+19. 🛡️ Update AuthProvider (createUser)
+20. 🛡️ Signup Page with React Hook Form
+21. 📦 Install Axios
+22. 🖼️ Image Upload Utility
+23. 🔄 Final Signup Logic With Image Upload
 
 ---
 
-## 🚀 Step 1: Create Vite Project
+# 🚀 Step 1: Create Vite Project
+
 ```bash
 npm create vite@latest my-project
-````
+```
 
-🎉 Project created successfully!
-
----
-
-## 📁 Step 2: Navigate Into Project
+# 📁 Step 2: Navigate Into Project
 
 ```bash
 cd my-project
 ```
 
----
-
-## ⚛️ Step 3: Install React
+# ⚛️ Step 3: Install React
 
 ```bash
 npm install
 ```
 
----
-
-## 🎨 Step 4: Install Tailwind CSS
+# 🎨 Step 4: Install Tailwind CSS
 
 ```bash
 npm install tailwindcss
 ```
 
-### Update `vite.config.ts`
+### `vite.config.ts`
 
 ```ts
 import { defineConfig } from "vite";
@@ -65,21 +62,19 @@ export default defineConfig({
 });
 ```
 
-### Update `index.css`
+### `src/index.css`
 
 ```css
 @import "tailwindcss";
 ```
 
----
-
-## 🌈 Step 5: Install DaisyUI
+# 🌈 Step 5: Install DaisyUI
 
 ```bash
 npm i -D daisyui@latest
 ```
 
-### Add Plugin in `index.css`
+### `src/index.css`
 
 ```css
 @plugin "daisyui" {
@@ -88,163 +83,144 @@ npm i -D daisyui@latest
 }
 ```
 
----
+# ✒️ Step 6: Add Urbanist Font
 
-## ✒️ Step 6: Add Urbanist Font
-
-### Update `index.css`
+### `src/index.css`
 
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@100;900&display=swap');
 
 body {
   font-family: "Urbanist", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
 }
 ```
 
----
-
-## 🛣️ Step 7: Install React Router, Icons & Loading Spinner
+# 🛣️ Step 7: Install React Router, Icons & Spinners
 
 ```bash
-npm i react-router react-spinners react-icons
+npm i react-router react-icons react-spinners
 ```
 
----
+# 🏗️ Step 8: Create Layout & Pages
 
-## 🏗️ Step 8: Create Layout & Pages
-
-### `MainLayout.jsx`
+### `src/layouts/MainLayout.jsx`
 
 ```jsx
-import React from "react";
 import { Outlet } from "react-router";
 
-const MainLayout = () => {
-  return (
-    <div>
-      <Outlet />
-    </div>
-  );
-};
+const MainLayout = () => (
+  <div>
+    <Outlet />
+  </div>
+);
 
 export default MainLayout;
 ```
 
-### `Home.jsx`
+### `src/pages/Home/Home.jsx`
 
 ```jsx
-import React from "react";
-
-const Home = () => {
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
-  );
-};
+const Home = () => (
+  <div>
+    <h1>Home</h1>
+  </div>
+);
 
 export default Home;
 ```
 
-### `Container.jsx`
+### `src/components/Shared/Container.jsx`
 
 ```jsx
-const Container = ({ children }) => {
-  return (
-    <div className='max-w-screen-2xl mx-auto xl:px-20 md:px-10 sm:px-2 px-4'>
-      {children}
-    </div>
-  )
-}
+const Container = ({ children }) => (
+  <div className='max-w-screen-2xl mx-auto xl:px-20 md:px-10 sm:px-2 px-4'>
+    {children}
+  </div>
+);
 
-export default Container
+export default Container;
 ```
 
-### `Button.jsx`
+### `src/components/Shared/Button.jsx`
 
 ```jsx
-const Button = ({ label, onClick, disabled, outline, small, icon: Icon }) => {
-  return (
-    <button
-      disabled={disabled}
-      onClick={onClick}
-      className={`
-        relative
-        disabled:opacity-70
-        disabled:cursor-not-allowed
-        rounded-lg
-        hover:opacity-80
-        transition
-        cursor-pointer
-        px-4
-        w-full
-        ${outline ? 'bg-white' : 'bg-lime-500'}
-        ${outline ? 'border-black' : 'border-lime-500'}
-        ${outline ? 'text-black' : 'text-white'}
-        ${small ? 'text-sm' : 'text-md'}
-        ${small ? 'py-1' : 'py-3'}
-        ${small ? 'font-light' : 'font-semibold'}
-        ${small ? 'border' : 'border-2'}
-      `}
-    >
-      {Icon && <Icon size={24} className='absolute left-4 top-3' />}
-      {label}
-    </button>
-  );
-};
+const Button = ({ label, onClick, disabled, outline, small, icon: Icon }) => (
+  <button
+    disabled={disabled}
+    onClick={onClick}
+    className={`
+      relative
+      disabled:opacity-70
+      disabled:cursor-not-allowed
+      rounded-lg
+      hover:opacity-80
+      transition
+      cursor-pointer
+      px-4
+      w-full
+      ${outline ? "bg-white" : "bg-lime-500"}
+      ${outline ? "border-black" : "border-lime-500"}
+      ${outline ? "text-black" : "text-white"}
+      ${small ? "text-sm" : "text-md"}
+      ${small ? "py-1" : "py-3"}
+      ${small ? "font-light" : "font-semibold"}
+      ${small ? "border" : "border-2"}
+    `}
+  >
+    {Icon && <Icon size={24} className="absolute left-4 top-3" />}
+    {label}
+  </button>
+);
 
 export default Button;
 ```
 
-### `LoadingSpinner.jsx`
+### `src/components/Shared/LoadingSpinner.jsx`
 
 ```jsx
-import { ScaleLoader } from 'react-spinners'
+import { ScaleLoader } from 'react-spinners';
 
-const LoadingSpinner = ({ smallHeight }) => {
-  return (
-    <div className={`${smallHeight ? 'h-[250px]' : 'h-[70vh]'} flex flex-col justify-center items-center`}>
-      <ScaleLoader size={100} color='lime' />
-    </div>
-  );
-};
+const LoadingSpinner = ({ smallHeight }) => (
+  <div className={`${smallHeight ? "h-[250px]" : "h-[70vh]"} flex justify-center items-center`}>
+    <ScaleLoader size={100} color='lime' />
+  </div>
+);
 
 export default LoadingSpinner;
 ```
 
-### `ErrorPage.jsx`
+### `src/pages/Error/ErrorPage.jsx`
 
 ```jsx
-import { useNavigate } from 'react-router'
+import { useNavigate } from "react-router";
 import Button from "../../components/Shared/Button";
 
 const ErrorPage = () => {
   const navigate = useNavigate();
 
   return (
-    <section className='bg-white '>
-      <div className='container flex items-center min-h-screen px-6 py-12 mx-auto'>
-        <div className='flex flex-col items-center max-w-sm mx-auto text-center'>
-          <p className='p-3 text-sm font-medium text-lime-500 rounded-full bg-blue-50 '>⚠️</p>
+    <section className="bg-white">
+      <div className="flex items-center min-h-screen px-6 py-12 mx-auto">
+        <div className="text-center max-w-sm mx-auto">
+          <p className="p-3 text-sm font-medium text-lime-500 rounded-full bg-blue-50">
+            ⚠️
+          </p>
 
-          <h1 className='mt-3 text-2xl font-semibold text-gray-800 md:text-3xl'>
+          <h1 className="mt-3 text-3xl font-semibold text-gray-800">
             Something Went Wrong!
           </h1>
 
-          <p className='mt-4 text-gray-500 '>Here are some helpful links:</p>
+          <p className="mt-4 text-gray-500">Here are some helpful links:</p>
 
-          <div className='flex items-center w-full mt-6 gap-x-3 sm:w-auto'>
+          <div className="flex items-center w-full mt-6 gap-x-3">
             <button
               onClick={() => navigate(-1)}
-              className='flex items-center justify-center w-1/2 px-5 py-1 text-sm text-gray-700 border rounded-lg hover:bg-gray-100'
+              className="px-5 py-2 text-sm text-gray-700 border rounded-lg hover:bg-gray-100"
             >
               🔙 Go Back
             </button>
 
-            <Button label='Take Me Home' onClick={() => navigate('/')} />
+            <Button label="Take Me Home" onClick={() => navigate("/")} />
           </div>
         </div>
       </div>
@@ -255,9 +231,9 @@ const ErrorPage = () => {
 export default ErrorPage;
 ```
 
----
+# 🧭 Step 9: Create Routes
 
-## 🧭 Step 9: Create Routes
+### `src/routes/routes.jsx`
 
 ```jsx
 import { createBrowserRouter } from "react-router";
@@ -277,12 +253,11 @@ export const router = createBrowserRouter([
 ]);
 ```
 
----
+# 🔌 Step 10: Enable Router in `main.jsx`
 
-## 🔌 Step 10: Enable Router in `main.jsx`
+### `src/main.jsx`
 
 ```jsx
-import React from "react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router";
@@ -295,16 +270,17 @@ createRoot(document.getElementById("root")).render(
   </StrictMode>
 );
 ```
+Perfect! Let’s continue and complete the **full project with paths for every step**. I’ll keep the same minimal icon-based Markdown style with file paths.
 
 ---
 
-## 🔔 Step 11: Add Toast Notifications
+# 🔔 Step 11: Add Toast Notifications
 
 ```bash
 npm install react-hot-toast
 ```
 
-### Add to `main.jsx`
+### `src/main.jsx` (update)
 
 ```jsx
 import { Toaster } from "react-hot-toast";
@@ -312,15 +288,13 @@ import { Toaster } from "react-hot-toast";
 <Toaster position="top-right" reverseOrder={false} />
 ```
 
----
-
-## 🔥 Step 12: Firebase Setup
+# 🔥 Step 12: Firebase Setup
 
 ```bash
 npm install firebase
 ```
 
-### `firebase.config.js`
+### `src/firebase/firebase.config.js`
 
 ```js
 import { initializeApp } from "firebase/app";
@@ -349,18 +323,18 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=YOUR_SENDER_ID
 VITE_FIREBASE_APP_ID=YOUR_APP_ID
 ```
 
----
+# 👤 Step 13: Create Auth Context
 
-## 👤 Step 13: Create Auth Context
+### `src/providers/AuthContext.jsx`
 
 ```jsx
 import { createContext } from "react";
 export const AuthContext = createContext(null);
 ```
 
----
+# 🛡️ Step 14: Create Auth Provider
 
-## 🛡️ Step 14: Create Auth Provider
+### `src/providers/AuthProvider.jsx`
 
 ```jsx
 import React from "react";
@@ -372,77 +346,47 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const authInfo = {};
-
-  return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
 ```
 
----
+# 🛡️ Step 15: Create `useAuth` Hook
 
-## 🛡️ Step 15: Create `useAuth` Hook
+### `src/hooks/useAuth.jsx`
 
 ```jsx
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthContext";
 
-const useAuth = () => {
-  const auth = useContext(AuthContext);
-  return auth;
-};
-
+const useAuth = () => useContext(AuthContext);
 export default useAuth;
 ```
 
----
+# 🛡️ Step 16: Create Login Page
 
-## 🛡️ Step 16: Create Login Page
+### `src/pages/Login/Login.jsx`
 
 ```jsx
-import React from "react";
-
-const Login = () => {
-  return (
-    <div>
-      <h1>Login</h1>
-    </div>
-  );
-};
-
+const Login = () => <div><h1>Login</h1></div>;
 export default Login;
 ```
 
----
+# 🛡️ Step 17: Create Signup Page
 
-## 🛡️ Step 17: Create Signup Page
+### `src/pages/Signup/Signup.jsx`
 
 ```jsx
-import React from "react";
-
-const SignUp = () => {
-  return (
-    <div>
-      <h1>SignUp</h1>
-    </div>
-  );
-};
-
+const SignUp = () => <div><h1>SignUp</h1></div>;
 export default SignUp;
 ```
 
----
+# 🛡️ Step 18: Add Login & Signup Routes
 
-## 🛡️ Step 18: Add Login & Signup Routes
+### `src/routes/routes.jsx` (update)
 
 ```jsx
-import { createBrowserRouter } from "react-router";
-import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/Home/Home";
-import ErrorPage from "../pages/Error/ErrorPage";
-import LoadingSpinner from "../components/Shared/LoadingSpinner";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/Signup/Signup";
 
@@ -461,14 +405,14 @@ export const router = createBrowserRouter([
 ]);
 ```
 
----
+# 🛡️ Step 19: Update AuthProvider for `createUser`
 
-## 🛡️ Step 19: Update AuthProvider for createUser
+### `src/providers/AuthProvider.jsx` (update)
 
 ```jsx
 import React, { useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import app from "../firebase/firebase.config";
 
 const auth = getAuth(app);
@@ -483,18 +427,15 @@ const AuthProvider = ({ children }) => {
   };
 
   const authInfo = { user, setUser, loading, setLoading, createUser };
-
-  return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
 ```
 
----
+# 🛡️ Step 20: Signup Page With React Hook Form
 
-## 🛡️ Step 20: Signup Page With React Hook Form
+### `src/pages/Signup/Signup.jsx` (update)
 
 ```jsx
 import { Link } from "react-router";
@@ -506,6 +447,7 @@ import useAuth from "../../hooks/useAuth";
 const SignUp = () => {
   const { createUser, loading } = useAuth();
 
+  // React Hook Form
   const {
     register,
     handleSubmit,
@@ -532,18 +474,26 @@ const SignUp = () => {
         <form
           onSubmit={handleSubmit(handelSignUp)}
           noValidate=""
-          className="space-y-6"
+          action=""
+          className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-4">
             <div>
-              <label className="block mb-2 text-sm">Name</label>
+              <label htmlFor="email" className="block mb-2 text-sm">
+                Name
+              </label>
               <input
                 type="text"
+                id="name"
                 placeholder="Enter Your Name Here"
-                className="w-full px-3 py-2 border rounded-md bg-gray-200"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900"
+                data-temp-mail-org="0"
                 {...register("name", {
                   required: "Name is required",
-                  maxLength: { value: 20, message: "Name too long" },
+                  maxLength: {
+                    value: 20,
+                    message: "Name cannot be too long",
+                  },
                 })}
               />
               {errors.name && (
@@ -552,28 +502,50 @@ const SignUp = () => {
                 </p>
               )}
             </div>
-
+            {/* Image */}
             <div>
-              <label className="block mb-2 text-sm font-medium">Profile Image</label>
+              <label
+                htmlFor="image"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                Profile Image
+              </label>
               <input
+                name="image"
                 type="file"
+                id="image"
                 accept="image/*"
-                className="block w-full text-sm border bg-gray-100 border-dashed border-lime-300 rounded-md py-2"
+                className="block w-full text-sm text-gray-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-md file:border-0
+      file:text-sm file:font-semibold
+      file:bg-lime-50 file:text-lime-700
+      hover:file:bg-lime-100
+      bg-gray-100 border border-dashed border-lime-300 rounded-md cursor-pointer
+      focus:outline-none focus:ring-2 focus:ring-lime-400 focus:border-lime-400
+      py-2"
                 {...register("image")}
               />
-            </div>
 
+              <p className="mt-1 text-xs text-gray-400">
+                PNG, JPG or JPEG (max 2MB)
+              </p>
+            </div>
             <div>
-              <label className="block mb-2 text-sm">Email</label>
+              <label htmlFor="email" className="block mb-2 text-sm">
+                Email address
+              </label>
               <input
                 type="email"
+                id="email"
                 placeholder="Enter Your Email Here"
-                className="w-full px-3 py-2 border rounded-md bg-gray-200"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900"
+                data-temp-mail-org="0"
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
-                    value: /^[^@]+@[^@]+\.[^@]+$/,
-                    message: "Invalid email format",
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Please enter a valid email",
                   },
                 })}
               />
@@ -583,16 +555,24 @@ const SignUp = () => {
                 </p>
               )}
             </div>
-
             <div>
-              <label className="block mb-2 text-sm">Password</label>
+              <div className="flex justify-between">
+                <label htmlFor="password" className="text-sm mb-2">
+                  Password
+                </label>
+              </div>
               <input
                 type="password"
+                autoComplete="new-password"
+                id="password"
                 placeholder="*******"
-                className="w-full px-3 py-2 border rounded-md bg-gray-200"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900"
                 {...register("password", {
                   required: "Password is required",
-                  minLength: { value: 6, message: "Min 6 characters" },
+                  minLength: {
+                    value: 6,
+                    message: "Password mast be at least 6 char",
+                  },
                 })}
               />
               {errors.password && (
@@ -616,20 +596,18 @@ const SignUp = () => {
             </button>
           </div>
         </form>
-
         <div className="flex items-center pt-4 space-x-1">
-          <div className="flex-1 h-px bg-gray-300"></div>
-          <p className="px-3 text-sm text-gray-400">
+          <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
+          <p className="px-3 text-sm dark:text-gray-400">
             Signup with social accounts
           </p>
-          <div className="flex-1 h-px bg-gray-300"></div>
+          <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
-
-        <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 rounded cursor-pointer">
+        <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
           <FcGoogle size={32} />
+
           <p>Continue with Google</p>
         </div>
-
         <p className="px-6 text-sm text-center text-gray-400">
           Already have an account?{" "}
           <Link
@@ -646,4 +624,50 @@ const SignUp = () => {
 };
 
 export default SignUp;
+```
+
+# 📦 Step 21: Install Axios
+
+```bash
+npm i axios
+```
+
+# 🖼️ Step 22: Image Upload Utility
+
+### `src/utils/imageUpload.js`
+
+```jsx
+import axios from "axios";
+
+export const imageupload = async (imageData) => {
+  const formData = new FormData();
+  formData.append("image", imageData);
+
+  const { data } = await axios.post(
+    `https://api.imgbb.com/1/upload?&key=${import.meta.env.VITE_IMGBB_API_KEY}`,
+    formData
+  );
+
+  return data?.data?.display_url;
+};
+```
+
+# 🔄 Step 23: Final Signup Logic With Image Upload
+
+### `src/pages/Signup/Signup.jsx` (update `handleSignUp`)
+
+```jsx
+import { imageupload } from "../../utils/imageUpload";
+
+const handleSignUp = async (data) => {
+  const { name, image, email, password } = data;
+  try {
+    await createUser(email, password);
+    const imgURL = await imageupload(image[0]);
+    // Optionally call updateUserProfile(name, imgURL)
+    // navigate("/"); toast.success("Signup Successful");
+  } catch (err) {
+    console.log(err);
+  }
+};
 ```
