@@ -678,8 +678,6 @@ export const imageupload = async (imageData) => {
 ### `src/pages/Signup/Signup.jsx` (update `handleSignUp`)
 
 ```jsx
-import { imageupload } from "../../utils/imageUpload";
-
   const handelSignUp = async (data) => {
     const { name, image, email, password } = data;
     console.log({ name, image, email, password });
