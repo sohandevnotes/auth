@@ -374,5 +374,3 @@ export const router = createBrowserRouter([
 ]);
 ```
 
-Just tell me!
-```
