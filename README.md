@@ -680,15 +680,26 @@ export const imageupload = async (imageData) => {
 ```jsx
 import { imageupload } from "../../utils/imageUpload";
 
-const handleSignUp = async (data) => {
-  const { name, image, email, password } = data;
-  try {
-    await createUser(email, password);
-    const imgURL = await imageupload(image[0]);
-    // Optionally call updateUserProfile(name, imgURL)
-    // navigate("/"); toast.success("Signup Successful");
-  } catch (err) {
-    console.log(err);
-  }
-};
+  const handelSignUp = async (data) => {
+    const { name, image, email, password } = data;
+    console.log({ name, image, email, password });
+
+    const imageFile = image[0];
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    try {
+      await createUser(email, password);
+
+      const imgURL = await imageupload(imageFile);
+
+      await updateUserProfile(name, imgURL);
+
+      navigate(from, { replace: true });
+      toast.success("Signup Successful");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
+    }
+  };
 ```
