@@ -647,10 +647,24 @@ const SignUp = () => {
 export default SignUp;
 ```
 
+Perfect! Your Step 21 & 22 now include **Axios installation** and the **ImgBB image upload utility** with `.env` key setup.
+
+Here’s a concise recap with the paths for clarity:
+
+---
+
 # 📦 Step 21: Install Axios
 
 ```bash
 npm i axios
+```
+
+# 📦 Step 22: Set ImgBB Key in `.env`
+
+### `.env`
+
+```env
+VITE_IMGBB_API_KEY=c0b0d24e5e84e9be7dac289ccc6eea0b
 ```
 
 # 🖼️ Step 22: Image Upload Utility
@@ -675,24 +689,49 @@ export const imageupload = async (imageData) => {
 
 # 🔄 Step 23: Final Signup Logic With Image Upload
 
-### `src/pages/Signup/Signup.jsx` (update `handleSignUp`)
+### `src/pages/Signup/Signup.jsx` (updated `handleSignUp`)
 
 ```jsx
+import { Link, useLocation, useNavigate } from "react-router";
+import { FcGoogle } from "react-icons/fc";
+import { TbFidgetSpinner } from "react-icons/tb";
+import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { imageupload } from "../../utils/imageUpload";
+
+const SignUp = () => {
+  const { createUser, loading, updateUserProfile } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state || "/";
+
+  // React Hook Form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  console.log(errors);
+
   const handelSignUp = async (data) => {
     const { name, image, email, password } = data;
     console.log({ name, image, email, password });
 
     const imageFile = image[0];
-    const formData = new FormData();
-    formData.append("image", imageFile);
 
     try {
+      // 1. Create User
       await createUser(email, password);
 
+      // 2. Upload Image
       const imgURL = await imageupload(imageFile);
 
+      // 3. Update User Profile
       await updateUserProfile(name, imgURL);
 
+      // 4. Redirect
       navigate(from, { replace: true });
       toast.success("Signup Successful");
     } catch (err) {
@@ -700,4 +739,152 @@ export const imageupload = async (imageData) => {
       toast.error(err?.message);
     }
   };
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-white">
+      <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
+        <div className="mb-8 text-center">
+          <h1 className="my-3 text-4xl font-bold">Sign Up</h1>
+          <p className="text-sm text-gray-400">Welcome to PlantNet</p>
+        </div>
+
+        <form
+          onSubmit={handleSubmit(handelSignUp)}
+          noValidate=""
+          className="space-y-6"
+        >
+          <div className="space-y-4">
+            {/* Name */}
+            <div>
+              <label htmlFor="name" className="block mb-2 text-sm">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                placeholder="Enter Your Name Here"
+                className="w-full px-3 py-2 border rounded-md bg-gray-200"
+                {...register("name", {
+                  required: "Name is required",
+                  maxLength: { value: 20, message: "Name cannot be too long" },
+                })}
+              />
+              {errors.name && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
+
+            {/* Image */}
+            <div>
+              <label htmlFor="image" className="block mb-2 text-sm font-medium">
+                Profile Image
+              </label>
+              <input
+                type="file"
+                id="image"
+                accept="image/*"
+                className="block w-full text-sm bg-gray-100 border border-dashed border-lime-300 rounded-md py-2 cursor-pointer"
+                {...register("image")}
+              />
+              <p className="mt-1 text-xs text-gray-400">
+                PNG, JPG or JPEG (max 2MB)
+              </p>
+            </div>
+
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block mb-2 text-sm">
+                Email address
+              </label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter Your Email Here"
+                className="w-full px-3 py-2 border rounded-md bg-gray-200"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Please enter a valid email",
+                  },
+                })}
+              />
+              {errors.email && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div>
+              <label htmlFor="password" className="block text-sm mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="*******"
+                className="w-full px-3 py-2 border rounded-md bg-gray-200"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+              />
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Submit */}
+          <div>
+            <button
+              type="submit"
+              className="bg-lime-500 w-full rounded-md py-3 text-white"
+            >
+              {loading ? (
+                <TbFidgetSpinner className="animate-spin m-auto" />
+              ) : (
+                "Continue"
+              )}
+            </button>
+          </div>
+        </form>
+
+        {/* Social Signup */}
+        <div className="flex items-center pt-4 space-x-1">
+          <div className="flex-1 h-px bg-gray-300"></div>
+          <p className="px-3 text-sm text-gray-400">Signup with social accounts</p>
+          <div className="flex-1 h-px bg-gray-300"></div>
+        </div>
+
+        <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 rounded cursor-pointer">
+          <FcGoogle size={32} />
+          <p>Continue with Google</p>
+        </div>
+
+        <p className="px-6 text-sm text-center text-gray-400">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="hover:underline hover:text-lime-500 text-gray-600"
+          >
+            Login
+          </Link>
+          .
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default SignUp;
 ```
