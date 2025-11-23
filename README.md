@@ -1,28 +1,31 @@
 # 📚 Table of Contents
-1. 🚀 Step 1: Create Vite Project  
-2. 📁 Step 2: Navigate Into Project  
-3. ⚛️ Step 3: Install React  
-4. 🎨 Step 4: Install Tailwind CSS  
-5. 🌈 Step 5: Install DaisyUI  
-6. ✒️ Step 6: Add Urbanist Font  
-7. 🛣️ Step 7: Install React Router  
-8. 🏗️ Step 8: Create Layout & Pages  
-9. 🧭 Step 9: Create Routes  
-10. 🔌 Step 10: Enable Router in main.jsx  
-11. 🔔 Step 11: Add Toast Notifications  
-12. 🔥 Step 12: Firebase Setup  
-13. 👤 Step 13: Create Auth Context  
-14. 🛡️ Step 14: Create Auth Provider  
-15. 🛡️ Step 15: Create useAuth Hook  
-16. 🛡️ Step 16: Create Login.jsx Page  
-17. 🛡️ Step 17: Create Signup.jsx Page  
-18. 🛡️ Step 18: Add Login & Signup Routes  
-________________________________________
+
+1. 🚀 Step 1: Create Vite Project
+2. 📁 Step 2: Navigate Into Project
+3. ⚛️ Step 3: Install React
+4. 🎨 Step 4: Install Tailwind CSS
+5. 🌈 Step 5: Install DaisyUI
+6. ✒️ Step 6: Add Urbanist Font
+7. 🛣️ Step 7: Install React Router
+8. 🏗️ Step 8: Create Layout & Pages
+9. 🧭 Step 9: Create Routes
+10. 🔌 Step 10: Enable Router in main.jsx
+11. 🔔 Step 11: Add Toast Notifications
+12. 🔥 Step 12: Firebase Setup
+13. 👤 Step 13: Create Auth Context
+14. 🛡️ Step 14: Create Auth Provider
+15. 🛡️ Step 15: Create useAuth Hook
+16. 🛡️ Step 16: Create Login.jsx Page
+17. 🛡️ Step 17: Create Signup.jsx Page
+18. 🛡️ Step 18: Add Login & Signup Routes
+
+---
 
 ## 🚀 Step 1: Create Vite Project
+
 ```bash
 npm create vite@latest my-project
-````
+```
 
 🎉 Project created successfully!
 
@@ -50,11 +53,9 @@ npm install
 npm install tailwindcss
 ```
 
-### Update **vite.config.ts**
+### Update `vite.config.ts`
 
-(Path: `my-project/vite.config.ts`)
-
-```js
+```ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -64,9 +65,7 @@ export default defineConfig({
 });
 ```
 
-### Update **index.css**
-
-(Path: `my-project/src/index.css`)
+### Update `index.css`
 
 ```css
 @import "tailwindcss";
@@ -80,8 +79,7 @@ export default defineConfig({
 npm i -D daisyui@latest
 ```
 
-Add plugin in **index.css**
-(Path: `my-project/src/index.css`)
+### Add plugin in `index.css`
 
 ```css
 @plugin "daisyui" {
@@ -93,8 +91,6 @@ Add plugin in **index.css**
 ---
 
 ## ✒️ Step 6: Add Urbanist Font
-
-(Path: `my-project/src/index.css`)
 
 ```css
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
@@ -108,19 +104,17 @@ body {
 
 ---
 
-## 🛣️ Step 7: Install React Router
+## 🛣️ Step 7: Install React Router & Loading Spinner
 
 ```bash
-npm i react-router
+npm i react-router react-spinners
 ```
 
 ---
 
 ## 🏗️ Step 8: Create Layout & Pages
 
-### **MainLayout.jsx**
-
-(Path: `my-project/src/layouts/MainLayout.jsx`)
+### `MainLayout.jsx`
 
 ```jsx
 import React from "react";
@@ -137,9 +131,7 @@ const MainLayout = () => {
 export default MainLayout;
 ```
 
-### **Home.jsx**
-
-(Path: `my-project/src/pages/Home/Home.jsx`)
+### `Home.jsx`
 
 ```jsx
 import React from "react";
@@ -155,21 +147,132 @@ const Home = () => {
 export default Home;
 ```
 
+### `Container.jsx`
+
+```jsx
+const Container = ({ children }) => {
+  return (
+    <div className='max-w-screen-2xl mx-auto xl:px-20 md:px-10 sm:px-2 px-4'>
+      {children}
+    </div>
+  )
+}
+
+export default Container
+```
+
+### `Button.jsx`
+
+```jsx
+const Button = ({ label, onClick, disabled, outline, small, icon: Icon }) => {
+  return (
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      className={`
+        relative
+        disabled:opacity-70
+        disabled:cursor-not-allowed
+        rounded-lg
+        hover:opacity-80
+        transition
+        cursor-pointer
+        px-4
+        w-full
+        ${outline ? 'bg-white' : 'bg-lime-500'}
+        ${outline ? 'border-black' : 'border-lime-500'}
+        ${outline ? 'text-black' : 'text-white'}
+        ${small ? 'text-sm' : 'text-md'}
+        ${small ? 'py-1' : 'py-3'}
+        ${small ? 'font-light' : 'font-semibold'}
+        ${small ? 'border' : 'border-2'}
+      `}
+    >
+      {Icon && (
+        <Icon size={24} className='absolute left-4 top-3' />
+      )}
+      {label}
+    </button>
+  )
+}
+
+export default Button
+```
+
+### `LoadingSpinner.jsx`
+
+```jsx
+import { ScaleLoader } from 'react-spinners'
+
+const LoadingSpinner = ({ smallHeight }) => {
+  return (
+    <div
+      className={`${smallHeight ? 'h-[250px]' : 'h-[70vh]'}
+      flex flex-col justify-center items-center`}
+    >
+      <ScaleLoader size={100} color='lime' />
+    </div>
+  )
+}
+
+export default LoadingSpinner
+```
+
+### `ErrorPage.jsx`
+
+```jsx
+import { useNavigate } from 'react-router'
+import Button from "../../components/Shared/Button";
+
+const ErrorPage = () => {
+  const navigate = useNavigate()
+
+  return (
+    <section className='bg-white '>
+      <div className='container flex items-center min-h-screen px-6 py-12 mx-auto'>
+        <div className='flex flex-col items-center max-w-sm mx-auto text-center'>
+          <h1 className='mt-3 text-2xl font-semibold text-gray-800 md:text-3xl'>
+            Something Went Wrong!
+          </h1>
+
+          <p className='mt-4 text-gray-500'>Here are some helpful links:</p>
+
+          <div className='flex items-center w-full mt-6 gap-x-3 sm:w-auto'>
+            <button
+              onClick={() => navigate(-1)}
+              className='flex items-center justify-center w-1/2 px-5 py-1 text-sm text-gray-700 border rounded-lg hover:bg-gray-100'
+            >
+              <span>Go back</span>
+            </button>
+
+            <Button label='Take Me Home' onClick={() => navigate('/')} />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default ErrorPage
+```
+
 ---
 
 ## 🧭 Step 9: Create Routes
-
-(Path: `my-project/src/routes/routes.jsx`)
 
 ```jsx
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
+import ErrorPage from "../pages/Error/ErrorPage";
+import LoadingSpinner from "../components/Shared/LoadingSpinner";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
+    errorElement: <ErrorPage />,
+    hydrateFallbackElement: <LoadingSpinner />,
     children: [{ index: true, Component: Home }],
   },
 ]);
@@ -178,8 +281,6 @@ export const router = createBrowserRouter([
 ---
 
 ## 🔌 Step 10: Enable Router in main.jsx
-
-(Path: `my-project/src/main.jsx`)
 
 ```jsx
 import React from "react";
@@ -204,8 +305,7 @@ createRoot(document.getElementById("root")).render(
 npm install react-hot-toast
 ```
 
-Enable in **main.jsx**:
-(Path: `my-project/src/main.jsx`)
+Add to `main.jsx`:
 
 ```jsx
 import { Toaster } from "react-hot-toast";
@@ -221,11 +321,9 @@ import { Toaster } from "react-hot-toast";
 npm install firebase
 ```
 
-### **firebase.config.js**
+### `firebase.config.js`
 
-(Path: `my-project/src/firebase/firebase.config.js`)
-
-```js
+```jsx
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -241,11 +339,9 @@ const app = initializeApp(firebaseConfig);
 export default app;
 ```
 
-### **.env**
+### `.env`
 
-(Path: `my-project/.env`)
-
-```
+```ini
 VITE_FIREBASE_API_KEY=YOUR_API_KEY
 VITE_FIREBASE_AUTH_DOMAIN=YOUR_PROJECT.firebaseapp.com
 VITE_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
@@ -258,9 +354,7 @@ VITE_FIREBASE_APP_ID=YOUR_APP_ID
 
 ## 👤 Step 13: Create Auth Context
 
-(Path: `my-project/src/providers/AuthContext.jsx`)
-
-```js
+```jsx
 import { createContext } from "react";
 export const AuthContext = createContext(null);
 ```
@@ -268,8 +362,6 @@ export const AuthContext = createContext(null);
 ---
 
 ## 🛡️ Step 14: Create Auth Provider
-
-(Path: `my-project/src/providers/AuthProvider.jsx`)
 
 ```jsx
 import React from "react";
@@ -294,8 +386,6 @@ export default AuthProvider;
 
 ## 🛡️ Step 15: Create useAuth Hook
 
-(Path: `my-project/src/hooks/useAuth.jsx`)
-
 ```jsx
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthContext";
@@ -311,8 +401,6 @@ export default useAuth;
 ---
 
 ## 🛡️ Step 16: Create Login.jsx Page
-
-(Path: `my-project/src/pages/Login/Login.jsx`)
 
 ```jsx
 import React from "react";
@@ -332,8 +420,6 @@ export default Login;
 
 ## 🛡️ Step 17: Create Signup.jsx Page
 
-(Path: `my-project/src/pages/Signup/Signup.jsx`)
-
 ```jsx
 import React from "react";
 
@@ -352,12 +438,12 @@ export default SignUp;
 
 ## 🛡️ Step 18: Add Login & Signup Routes
 
-(Path: `my-project/src/routes/routes.jsx`)
-
 ```jsx
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
+import ErrorPage from "../pages/Error/ErrorPage";
+import LoadingSpinner from "../components/Shared/LoadingSpinner";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/Signup/Signup";
 
@@ -365,6 +451,8 @@ export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
+    errorElement: <ErrorPage />,
+    hydrateFallbackElement: <LoadingSpinner />,
     children: [
       { index: true, Component: Home },
       { path: "/login", Component: Login },
@@ -374,3 +462,4 @@ export const router = createBrowserRouter([
 ]);
 ```
 
+Just tell me!
