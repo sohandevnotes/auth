@@ -1,24 +1,23 @@
-## 📚 Table of Contents
-1. 🚀 Step 1: Create Vite Project
-2. 📁 Step 2: Navigate Into Project
-3. ⚛️ Step 3: Install React
-4. 🎨 Step 4: Install Tailwind CSS
-5. 🌈 Step 5: Install DaisyUI
-6. ✒️ Step 6: Add Urbanist Font
-7. 🛣️ Step 7: Install React Router
-8. 🏗️ Step 8: Create Layout & Pages
-9. 🧭 Step 9: Create Routes
-10. 🔌 Step 10: Enable Router in main.jsx
-11. 🔔 Step 11: Add Toast Notifications
-12. 🔥 Step 12: Firebase Setup
-13. 👤 Step 13: Create Auth Context
-14. 🛡️ Step 14: Create Auth Provider
-15. 🛡️ Step 15: Create useAuth Hook
-16. 🛡️ Step 16: Create Login.jsx Page
-17. 🛡️ Step 17: Create Signup.jsx Page
-18. 🛡️ Step 18: Add Login & Signup Routes
-
----
+# 📚 Table of Contents
+1. 🚀 Step 1: Create Vite Project  
+2. 📁 Step 2: Navigate Into Project  
+3. ⚛️ Step 3: Install React  
+4. 🎨 Step 4: Install Tailwind CSS  
+5. 🌈 Step 5: Install DaisyUI  
+6. ✒️ Step 6: Add Urbanist Font  
+7. 🛣️ Step 7: Install React Router  
+8. 🏗️ Step 8: Create Layout & Pages  
+9. 🧭 Step 9: Create Routes  
+10. 🔌 Step 10: Enable Router in main.jsx  
+11. 🔔 Step 11: Add Toast Notifications  
+12. 🔥 Step 12: Firebase Setup  
+13. 👤 Step 13: Create Auth Context  
+14. 🛡️ Step 14: Create Auth Provider  
+15. 🛡️ Step 15: Create useAuth Hook  
+16. 🛡️ Step 16: Create Login.jsx Page  
+17. 🛡️ Step 17: Create Signup.jsx Page  
+18. 🛡️ Step 18: Add Login & Signup Routes  
+________________________________________
 
 ## 🚀 Step 1: Create Vite Project
 ```bash
@@ -51,9 +50,11 @@ npm install
 npm install tailwindcss
 ```
 
-Update `vite.config.ts`:
+### Update **vite.config.ts**
 
-```javascript
+(Path: `my-project/vite.config.ts`)
+
+```js
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -63,10 +64,11 @@ export default defineConfig({
 });
 ```
 
-Update `index.css`:
+### Update **index.css**
+
+(Path: `my-project/src/index.css`)
 
 ```css
-/* src/index.css */
 @import "tailwindcss";
 ```
 
@@ -78,10 +80,10 @@ Update `index.css`:
 npm i -D daisyui@latest
 ```
 
-Add plugin in `index.css`:
+Add plugin in **index.css**
+(Path: `my-project/src/index.css`)
 
 ```css
-/* src/index.css */
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark;
   themes: light --default;
@@ -92,14 +94,15 @@ Add plugin in `index.css`:
 
 ## ✒️ Step 6: Add Urbanist Font
 
+(Path: `my-project/src/index.css`)
+
 ```css
-/* src/index.css */
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
-    font-family: "Urbanist", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+  font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 ```
 
@@ -115,9 +118,11 @@ npm i react-router
 
 ## 🏗️ Step 8: Create Layout & Pages
 
-**MainLayout.jsx**
+### **MainLayout.jsx**
 
-```javascript
+(Path: `my-project/src/layouts/MainLayout.jsx`)
+
+```jsx
 import React from "react";
 import { Outlet } from "react-router";
 
@@ -132,9 +137,11 @@ const MainLayout = () => {
 export default MainLayout;
 ```
 
-**Home.jsx**
+### **Home.jsx**
 
-```javascript
+(Path: `my-project/src/pages/Home/Home.jsx`)
+
+```jsx
 import React from "react";
 
 const Home = () => {
@@ -152,7 +159,9 @@ export default Home;
 
 ## 🧭 Step 9: Create Routes
 
-```javascript
+(Path: `my-project/src/routes/routes.jsx`)
+
+```jsx
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
@@ -170,7 +179,9 @@ export const router = createBrowserRouter([
 
 ## 🔌 Step 10: Enable Router in main.jsx
 
-```javascript
+(Path: `my-project/src/main.jsx`)
+
+```jsx
 import React from "react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -193,9 +204,10 @@ createRoot(document.getElementById("root")).render(
 npm install react-hot-toast
 ```
 
-Enable in `main.jsx`:
+Enable in **main.jsx**:
+(Path: `my-project/src/main.jsx`)
 
-```javascript
+```jsx
 import { Toaster } from "react-hot-toast";
 
 <Toaster position="top-right" reverseOrder={false} />
@@ -209,9 +221,11 @@ import { Toaster } from "react-hot-toast";
 npm install firebase
 ```
 
-**firebase.config.js**
+### **firebase.config.js**
 
-```javascript
+(Path: `my-project/src/firebase/firebase.config.js`)
+
+```js
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -227,7 +241,9 @@ const app = initializeApp(firebaseConfig);
 export default app;
 ```
 
-**.env**
+### **.env**
+
+(Path: `my-project/.env`)
 
 ```
 VITE_FIREBASE_API_KEY=YOUR_API_KEY
@@ -242,8 +258,10 @@ VITE_FIREBASE_APP_ID=YOUR_APP_ID
 
 ## 👤 Step 13: Create Auth Context
 
-```javascript
-import { createContext } from 'react';
+(Path: `my-project/src/providers/AuthContext.jsx`)
+
+```js
+import { createContext } from "react";
 export const AuthContext = createContext(null);
 ```
 
@@ -251,7 +269,9 @@ export const AuthContext = createContext(null);
 
 ## 🛡️ Step 14: Create Auth Provider
 
-```javascript
+(Path: `my-project/src/providers/AuthProvider.jsx`)
+
+```jsx
 import React from "react";
 import { AuthContext } from "./AuthContext";
 import { getAuth } from "firebase/auth";
@@ -274,9 +294,11 @@ export default AuthProvider;
 
 ## 🛡️ Step 15: Create useAuth Hook
 
-```javascript
-import { useContext } from 'react';
-import { AuthContext } from '../providers/AuthContext';
+(Path: `my-project/src/hooks/useAuth.jsx`)
+
+```jsx
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthContext";
 
 const useAuth = () => {
   const auth = useContext(AuthContext);
@@ -290,7 +312,9 @@ export default useAuth;
 
 ## 🛡️ Step 16: Create Login.jsx Page
 
-```javascript
+(Path: `my-project/src/pages/Login/Login.jsx`)
+
+```jsx
 import React from "react";
 
 const Login = () => {
@@ -308,7 +332,9 @@ export default Login;
 
 ## 🛡️ Step 17: Create Signup.jsx Page
 
-```javascript
+(Path: `my-project/src/pages/Signup/Signup.jsx`)
+
+```jsx
 import React from "react";
 
 const SignUp = () => {
@@ -326,7 +352,9 @@ export default SignUp;
 
 ## 🛡️ Step 18: Add Login & Signup Routes
 
-```javascript
+(Path: `my-project/src/routes/routes.jsx`)
+
+```jsx
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
@@ -344,4 +372,7 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+```
+
+Just tell me!
 ```
