@@ -1,31 +1,3 @@
-# 📚 Table of Contents
-
-1. 🚀 Create Vite Project
-2. 📁 Navigate Into Project
-3. ⚛️ Install React
-4. 🎨 Install Tailwind CSS
-5. 🌈 Install DaisyUI
-6. ✒️ Add Urbanist Font
-7. 🛣️ Install React Router
-8. 🏗️ Create Layout & Pages
-9. 🧭 Create Routes
-10. 🔌 Enable Router in `main.jsx`
-11. 🔔 Add Toast Notifications
-12. 🔥 Firebase Setup
-13. 👤 Create Auth Context
-14. 🛡️ Create Auth Provider
-15. 🛡️ Create `useAuth` Hook
-16. 🛡️ Create Login Page
-17. 🛡️ Create Signup Page
-18. 🛡️ Add Login & Signup Routes
-19. 🛡️ Update AuthProvider (createUser)
-20. 🛡️ Signup Page with React Hook Form
-21. 📦 Install Axios
-22. 🖼️ Image Upload Utility
-23. 🔄 Final Signup Logic With Image Upload
-
----
-
 # 🚀 Step 1: Create Vite Project
 
 ```bash
