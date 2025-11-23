@@ -412,7 +412,11 @@ export const router = createBrowserRouter([
 ```jsx
 import React, { useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from "firebase/auth";
 import app from "../firebase/firebase.config";
 
 const auth = getAuth(app);
@@ -426,8 +430,25 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const authInfo = { user, setUser, loading, setLoading, createUser };
-  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
+  const updateUserProfile = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
+
+  const authInfo = {
+    user,
+    setUser,
+    loading,
+    setLoading,
+    createUser,
+    updateUserProfile,
+  };
+
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
